@@ -21,6 +21,8 @@ struct HomeView: View {
         ScrollView(.vertical, showsIndicators: false){
             
             // MARK: Lazy Stack With Pinned Header
+            // 引数のpinnedViewsは [sectionHeaders][sectionFooters]のどちらかを指定。
+            // リストをスクロールした際に固定される要素を決めている
             LazyVStack(spacing: 15, pinnedViews: [.sectionHeaders]){
                 
                 Section{
@@ -34,9 +36,7 @@ struct HomeView: View {
                     //スクロールインジケーターの表示/非表示をBool値で指定
                     //未指定の場合、デフォルト値は true（表示）
                     ScrollView(.horizontal, showsIndicators: false){
-                        
                         HStack(spacing: 10){
-                            
                             ForEach(taskViewModel.currentWeek, id: \.self){ day in
                                 // 日付と曜日を表示
                                 VStack(spacing: 10){

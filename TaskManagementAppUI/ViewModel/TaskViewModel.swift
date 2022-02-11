@@ -32,6 +32,7 @@ class TaskViewModel: ObservableObject{
     
     // MARK: Current Week Days
     //Let's write a code which will fetch the current week dates(Erom SUn to Sat)
+    // 今週
     @Published var currentWeek: [Date] = []
     
     // MARK: Current Day
@@ -41,10 +42,13 @@ class TaskViewModel: ObservableObject{
     
     // MARK: Filtering Today Tasks
     // Filtering the tasks for the date user is selected
+    // タスクをフィルタリングする
+    // ?を付与してオプショナル型にしているのはタスクがない日もあるため
     @Published var filteredTasks: [TaskModel]?
     
     // MARK: Intializing
-    // 一番最初に現在の週の日付（日〜土）を取得するfetchCurrentWeekを呼び出す
+    // 一番最初に現在の週の日付（日〜土）を取得するfetchCurrentWeekと
+    // 今日のタスクの有無を判定するfilterTodayTasksをイニシャライザで呼び出す
     init(){
         fetchCurrentWeek()
         filterTodayTasks()
@@ -54,7 +58,7 @@ class TaskViewModel: ObservableObject{
     // 今日のタスクの有無を判定する
     func filterTodayTasks(){
         DispatchQueue.global(qos: .userInteractive).async {
-            
+            // カレンダーを生成
             let calender = Calendar.current
             
             // Filtering tasks based on the user selected Date
@@ -111,7 +115,7 @@ class TaskViewModel: ObservableObject{
     // In order to do that we need to wirte a function which will verify if the week day is today
     // 今日かどうかを判定して、今日であればtrue、今日以外であればfalseを返すメソッド
     func isToday(date: Date) -> Bool {
-        
+        // カレンダーを生成
         let calender = Calendar.current
         
         return calender.isDate(currentDay, inSameDayAs: date)
